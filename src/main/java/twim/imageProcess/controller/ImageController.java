@@ -8,9 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import twim.imageProcess.entity.ImageVO;
 import twim.imageProcess.service.ImageService;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Optional;
 
 @RestController
@@ -32,11 +30,20 @@ public class ImageController {
     }
 
     @GetMapping(value = "/api/download/{id}")
-    public void imageFileDownload(@PathVariable int id){
+    public void imageFileDownload(@PathVariable int id) throws IOException {
+        File file = new File("C:\\Users\\TWIM\\Pictures\\image\\download.jpeg");
+
         Optional<ImageVO> image = imageService.findImageEntity(id);
         byte[] data = image.get().getData();
 
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
-        //byte배열을 이미지로 저장
+        FileOutputStream fop = new FileOutputStream(file);
+
+        if(!file.exists()){
+            file.createNewFile();
+        }
+
+        fop.write(data);
+        fop.flush();
+        fop.close();
     }
 }
