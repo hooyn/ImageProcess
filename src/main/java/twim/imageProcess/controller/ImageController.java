@@ -1,11 +1,10 @@
 package twim.imageProcess.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import twim.imageProcess.entity.ImageVO;
+import twim.imageProcess.entity.Image;
 import twim.imageProcess.service.ImageService;
 
 import java.io.*;
@@ -33,7 +32,7 @@ public class ImageController {
     public void imageFileDownload(@PathVariable int id) throws IOException {
         File file = new File("C:\\Users\\TWIM\\Pictures\\image\\download.jpeg");
 
-        Optional<ImageVO> image = imageService.findImageEntity(id);
+        Optional<Image> image = imageService.findImageEntity(id);
         byte[] data = image.get().getData();
 
         FileOutputStream fop = new FileOutputStream(file);

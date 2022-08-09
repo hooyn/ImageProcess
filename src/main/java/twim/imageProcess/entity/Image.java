@@ -1,13 +1,12 @@
 package twim.imageProcess.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-public class ImageVO {
+public class Image {
     @Id @GeneratedValue
     private Integer id;
     private String mimetype;

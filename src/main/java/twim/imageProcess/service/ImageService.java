@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import twim.imageProcess.entity.ImageVO;
+import twim.imageProcess.entity.Image;
 import twim.imageProcess.repository.ImageRepository;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class ImageService {
 
     @Transactional
     public Integer fileUpload(MultipartFile file) throws IOException {
-        ImageVO imageVO = new ImageVO();
+        Image imageVO = new Image();
         imageVO.setMimetype(file.getContentType());
         imageVO.setOriginal_name(file.getOriginalFilename());
         imageVO.setData(file.getBytes());
@@ -33,7 +33,7 @@ public class ImageService {
 
     @Transactional(readOnly = true)
     public ResponseEntity<byte[]> findImage(Integer id){
-        Optional<ImageVO> imageVO = imageRepository.findById(id);
+        Optional<Image> imageVO = imageRepository.findById(id);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", imageVO.get().getMimetype());
@@ -43,8 +43,8 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<ImageVO> findImageEntity(Integer id){
-        Optional<ImageVO> image = imageRepository.findById(id);
+    public Optional<Image> findImageEntity(Integer id){
+        Optional<Image> image = imageRepository.findById(id);
         return image;
     }
 }
